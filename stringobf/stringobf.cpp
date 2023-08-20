@@ -23,45 +23,69 @@ using namespace llvm;
 STATISTIC(stringobfCounter, "Counts number of functions greeted");
 
 namespace {
-  // stringobf - The first implementation, without getAnalysisUsage.
-  struct stringobf : public FunctionPass {
-    static char ID; // Pass identification, replacement for typeid
-    stringobf() : FunctionPass(ID) {}
+    // stringobf - The first implementation, without getAnalysisUsage.
+    struct stringobf : public FunctionPass {
+        static char ID; // Pass identification, replacement for typeid
+        stringobf() : FunctionPass(ID) {}
 
-    bool runOnFunction(Function &F) override {
-      ++stringobfCounter;
+        bool runOnFunction(Function &F) override {
+            ++stringobfCounter;
 
-      errs() << "stringobf yes~: ";
-      
-      errs().write_escaped(F.getName()) << '\n';
-      return false;
-    }
-  };
+
+            errs().write_escaped(F.getName()) << '\n';
+            stringtoobf(F);
+            return false;
+        }
+
+        void stringtoobf(Function &F) {
+            for (BasicBlock &basicblock: F) {
+                errs() << "BasicBlock name:" << basicblock << "\r\n";
+                for (Instruction &instruction: basicblock) {
+                   // errs() <<"instruction :" <<instruction << "\r\n";
+
+                    for (Use &oper: instruction.operands()) {
+
+                        if (isa<GlobalVariable>(oper->stripPointerCasts())) {
+                           Value * u = oper->stripPointerCasts();
+
+                           if(u->getName().contains(".str")){
+
+                               errs() << "found global vaule" << instruction<<"\r\n";
+                           }
+                        }
+
+                    }
+                }
+
+
+            }
+        }
+    };
 }
 
 char stringobf::ID = 0;
 static RegisterPass<stringobf> X("stringobf", "stringobf World Pass");
 
 namespace {
-  // stringobf2 - The second implementation with getAnalysisUsage implemented.
-  struct stringobf2 : public FunctionPass {
-    static char ID; // Pass identification, replacement for typeid
-    stringobf2() : FunctionPass(ID) {}
+    // stringobf2 - The second implementation with getAnalysisUsage implemented.
+    struct stringobf2 : public FunctionPass {
+        static char ID; // Pass identification, replacement for typeid
+        stringobf2() : FunctionPass(ID) {}
 
-    bool runOnFunction(Function &F) override {
-      ++stringobfCounter;
-      errs() << "stringobf: ";
-      errs().write_escaped(F.getName()) << '\n';
-      return false;
-    }
+        bool runOnFunction(Function &F) override {
+            ++stringobfCounter;
+            errs() << "stringobf: ";
+            errs().write_escaped(F.getName()) << '\n';
+            return false;
+        }
 
-    // We don't modify the program, so we preserve all analyses.
-    void getAnalysisUsage(AnalysisUsage &AU) const override {
-      AU.setPreservesAll();
-    }
-  };
+        // We don't modify the program, so we preserve all analyses.
+        void getAnalysisUsage(AnalysisUsage &AU) const override {
+            AU.setPreservesAll();
+        }
+    };
 }
 
 char stringobf2::ID = 0;
 static RegisterPass<stringobf2>
-Y("stringobf2", "stringobf World Pass (with getAnalysisUsage implemented)");
+        Y("stringobf2", "stringobf World Pass (with getAnalysisUsage implemented)");

@@ -3,7 +3,8 @@ source_filename = "main.c"
 target datalayout = "e-m:e-i64:64-f80:128-n8:16:32:64-S128"
 target triple = "x86_64-pc-linux-gnu"
 
-@.str = private unnamed_addr constant [14 x i8] c"hello world\0D\0A\00", align 1
+@.str = private unnamed_addr constant [10 x i8] c"chan233\0D\0A\00", align 1
+@.str.1 = private unnamed_addr constant [14 x i8] c"hello world\0D\0A\00", align 1
 
 ; Function Attrs: noinline nounwind optnone uwtable
 define i32 @add(i32, i32) #0 {
@@ -20,8 +21,10 @@ define i32 @add(i32, i32) #0 {
 ; Function Attrs: noinline nounwind optnone uwtable
 define i32 @main() #0 {
   %1 = alloca i32, align 4
+  %2 = alloca i8*, align 8
   store i32 0, i32* %1, align 4
-  %2 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @.str, i32 0, i32 0))
+  store i8* getelementptr inbounds ([10 x i8], [10 x i8]* @.str, i32 0, i32 0), i8** %2, align 8
+  %3 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @.str.1, i32 0, i32 0))
   ret i32 0
 }
 
