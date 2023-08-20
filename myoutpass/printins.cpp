@@ -10,7 +10,7 @@ void printFunction(Function &F) {
     errs()<< "Instruction:" <<  bb.getName();
     for(auto i  = bs.begin();i!=bs.begin();++i){
         SymbolTableList<Instruction> &ns = i->getInstList();
-
+//
 
         for(auto ins = ns.begin();ins != ns.end();++ins){
             errs()<< "opcode:" << ins->getOpcode();
