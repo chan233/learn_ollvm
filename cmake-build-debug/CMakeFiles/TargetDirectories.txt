@@ -1,6 +1,0 @@
-/home/dehua/Desktop/llvm/learn_ollvm/cmake-build-debug/CMakeFiles/intrinsics_gen.dir
-/home/dehua/Desktop/llvm/learn_ollvm/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/dehua/Desktop/llvm/learn_ollvm/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/dehua/Desktop/llvm/learn_ollvm/cmake-build-debug/myoutpass/CMakeFiles/LLVMMyoutpass.dir
-/home/dehua/Desktop/llvm/learn_ollvm/cmake-build-debug/myoutpass/CMakeFiles/edit_cache.dir
-/home/dehua/Desktop/llvm/learn_ollvm/cmake-build-debug/myoutpass/CMakeFiles/rebuild_cache.dir
