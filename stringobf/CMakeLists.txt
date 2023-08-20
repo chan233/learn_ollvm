@@ -1,0 +1,1 @@
+add_library(LLVMMStringobf MODULE stringobf.cpp)
