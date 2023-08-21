@@ -43,13 +43,16 @@ namespace {
                 for (Instruction &instruction: basicblock) {
                     // errs() <<"instruction :" <<instruction << "\r\n";
 
-                    for (Use &oper: instruction.operands()) {
+                    for (Value *oper: instruction.operands()) {
 
                         if (isa<GlobalVariable>(oper->stripPointerCasts())) {
-                            Value *u = oper->stripPointerCasts();
+                            Value *stripPointer = oper->stripPointerCasts();
 
-                            if (u->getName().contains(".str")) {
+                            if (stripPointer->getName().contains(".str")) {
+                                GlobalVariable *GV = dyn_cast<GlobalVariable>(stripPointer);
+                                if(!GV || GV->isConstant()){
 
+                                }
                                 errs() << "found global vaule" << instruction << "\r\n";
                             }
                         }
